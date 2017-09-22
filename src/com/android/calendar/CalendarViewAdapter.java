@@ -19,6 +19,8 @@ package com.android.calendar;
 import com.android.calendar.CalendarController.ViewType;
 
 import android.content.Context;
+import android.suda.lunar.Lunar;
+import android.suda.utils.SudaUtils;
 import android.os.Handler;
 import android.text.format.DateUtils;
 import android.text.format.Time;
@@ -29,11 +31,15 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Formatter;
+import java.util.List;
 import java.util.Locale;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.TimeZone;
-
 
 /*
  * The MenuSpinnerAdapter defines the look of the ActionBar's pull down menu
@@ -183,6 +189,42 @@ public class CalendarViewAdapter extends BaseAdapter {
             TextView weekDay = (TextView) v.findViewById(R.id.top_button_weekday);
             TextView date = (TextView) v.findViewById(R.id.top_button_date);
 
+            if (SudaUtils.isSupportLanguage(false)) {
+                switch (mCurrentMainView) {
+                case ViewType.DAY:
+                    weekDay.setVisibility(View.VISIBLE);
+                    weekDay.setText(buildDayOfWeek() + buildLunarDate(true));
+                    date.setText(buildFullDate());
+                    break;
+                case ViewType.WEEK:
+                    if (Utils.getShowWeekNumber(mContext)) {
+                        weekDay.setVisibility(View.VISIBLE);
+                        weekDay.setText(buildWeekNum());
+                    } else {
+                        weekDay.setVisibility(View.VISIBLE);
+                        weekDay.setText(buildDayOfWeek() + buildLunarDate(false));
+                    }
+                    date.setText(buildMonthYearDate());
+                    break;
+                case ViewType.MONTH:
+                    weekDay.setVisibility(View.VISIBLE);
+                    weekDay.setText(buildDayOfWeek() + buildLunarDate(false));
+                    date.setText(buildMonthYearDate());
+                    break;
+                case ViewType.AGENDA:
+                    weekDay.setVisibility(View.VISIBLE);
+                    weekDay.setText(buildDayOfWeek() + buildLunarDate(true));
+                    date.setText(buildFullDate());
+                    break;
+                case ViewType.YEAR:
+                    weekDay.setVisibility(View.GONE);
+                    date.setText(buildYearDate());
+                    break;
+                default:
+                    v = null;
+                    break;
+                }
+            } else {
             switch (mCurrentMainView) {
                 case ViewType.DAY:
                     weekDay.setVisibility(View.VISIBLE);
@@ -194,12 +236,14 @@ public class CalendarViewAdapter extends BaseAdapter {
                         weekDay.setVisibility(View.VISIBLE);
                         weekDay.setText(buildWeekNum());
                     } else {
-                        weekDay.setVisibility(View.GONE);
+                        weekDay.setVisibility(View.VISIBLE);
+                        weekDay.setText(buildDayOfWeek());
                     }
                     date.setText(buildMonthYearDate());
                     break;
                 case ViewType.MONTH:
-                    weekDay.setVisibility(View.GONE);
+                    weekDay.setVisibility(View.VISIBLE);
+                    weekDay.setText(buildDayOfWeek());
                     date.setText(buildMonthYearDate());
                     break;
                 case ViewType.AGENDA:
@@ -209,12 +253,12 @@ public class CalendarViewAdapter extends BaseAdapter {
                     break;
                 case ViewType.YEAR:
                     weekDay.setVisibility(View.GONE);
-                    lunarInfo.setVisibility(View.GONE);
                     date.setText(buildYearDate());
                     break;
                 default:
                     v = null;
                     break;
+              }
             }
         } else {
             if (convertView == null || ((Integer) convertView.getTag()).intValue()
@@ -371,6 +415,21 @@ public class CalendarViewAdapter extends BaseAdapter {
         SimpleDateFormat yearFormat = new SimpleDateFormat("yyyy");
         yearFormat.setTimeZone(TimeZone.getTimeZone(mTimeZone));
         return yearFormat.format(new Date(mMilliTime));
+    }
+
+    private String buildLunarDate(boolean isFull) {
+        List<String> list = new ArrayList<String>();
+        Calendar cal = Calendar.getInstance();
+        String date = DateUtils.formatDateRange(mContext, mFormatter, mMilliTime, mMilliTime,
+                DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_SHOW_YEAR, mTimeZone).toString();
+        Pattern p = Pattern.compile("[\\u4e00-\\u9fa5]+|\\d+");
+        Matcher m = p.matcher(date);
+        while(m.find()) {
+            list.add(m.group());
+         }
+        cal.set(Integer.parseInt(list.get(1)), Integer.parseInt(list.get(3)) - 1,Integer.parseInt(list.get(5)));
+        Lunar lunar = new Lunar(cal);
+        return isFull == true ? "   "+lunar.toString():"   "+lunar.toString().substring(0, 4);
     }
 
     private String buildMonthYearDate() {
