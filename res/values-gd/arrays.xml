@@ -15,53 +15,154 @@
      limitations under the License.
 -->
 <resources>
-    <!-- Choices for the "Reminder method" spinner.
-         These must be kept in sync with the reminder_methods_values array.
-         [CHAR LIMIT=10]
-    -->
-    <!-- This maps reminder_methods_labels to internal constants. -->
-    <!-- Choices for the "Reminder minutes" spinner.
-         These must be kept in sync with the reminder_minutes_values array.
-         For consistency, the format should match what
-         EventViewUtils.constructReminderLabel() generates.  (TODO: eliminate
-         this and just generate the list from reminder_minutes_values?)
-         [CHAR LIMIT=15]
-    -->
-    <!-- Choices for the "Reminder minutes" spinner in the settings.
-         These must be kept in sync with the preferences_default_reminder_values array.
-         [CHAR LIMIT=12]
-    -->
-    <!-- This maps reminder_methods_labels to internal constants. -->
-    <!-- Invitation responses -->
-    <!-- The corresponding indices are defined in DeleteEventHelper.java -->
-    <!-- This is a list of choices displayed when the user deletes an event.
-         It only is shown when deleting a recurring event.
-    -->
-    <!-- DO NOT TRANSLATE These values need to correspond to the indices
-         defined in DeleteEventHelper.java-->
-    <!-- The corresponding indices are defined in DeleteEventHelper.java -->
-    <!-- This is the same array as above (the "delete_repeating_labels" array,
-         except that the first element "Only this event" is removed.  This
-         array exists to work-around a bug in the CalendarProvider and sync
-         code where you can't delete one instance of a repeating event that
-         was created on the phone until that event has been synced to the server.
-     -->
-    <!-- The corresponding array indices are defined in EventInfoActivity.java -->
-    <!-- The list of choices displayed in a dialog box when the user wants to
-    respond to an invitation that repeats. -->
-    <!-- Strings for buttons in drop down menu -->
-    <!-- Experimental options for skipping reminders. [CHAR LIMIT = 37] -->
-    <!-- Recurrence picker: How events are to be repeated.  [CHAR LIMIT = 20] -->
-    <!-- The following sets of strings describe a monthly recurring event, which will repeat
-         on the Nth WEEKDAY of every month. For example, the 3rd Monday of every month, or
-         the last Sunday. These are set up like this to resolve any gender-matching issues
-         that were present in some languages.
-     -->
-    <!-- Repeat a monthly event on the same nth day of every Sunday. [CHAR LIMIT=30] -->
-    <!-- Repeat a monthly event on the same nth day of every Monday. [CHAR LIMIT=30] -->
-    <!-- Repeat a monthly event on the same nth day of every Tuesday. [CHAR LIMIT=30] -->
-    <!-- Repeat a monthly event on the same nth day of every Wednesday. [CHAR LIMIT=30] -->
-    <!-- Repeat a monthly event on the same nth day of every Thursday. [CHAR LIMIT=30] -->
-    <!-- Repeat a monthly event on the same nth day of every Friday. [CHAR LIMIT=30] -->
-    <!-- Repeat a monthly event on the same nth day of every Saturday. [CHAR LIMIT=30] -->
+    <string-array name="reminder_methods_labels">
+        <item>Brath</item>
+        <item>Post-d</item>
+        <item>SMS</item>
+        <item>Caismeachd</item>
+    </string-array>
+    <string-array name="reminder_minutes_labels">
+        <item>0 mionaid</item>
+        <item>Mionaid</item>
+        <item>5 mionaidean</item>
+        <item>10 mionaidean</item>
+        <item>Cairteal na h-uarach</item>
+        <item>20 mionaid</item>
+        <item>25 mionaid</item>
+        <item>Leth-uair a thìde</item>
+        <item>Trì cairteal na h-uarach</item>
+        <item>Uair a thìde</item>
+        <item>2 uair a thìde</item>
+        <item>3 uairean a thìde</item>
+        <item>12 uair a thìde</item>
+        <item>24 uair a thìde</item>
+        <item>2 latha</item>
+        <item>Seachdain</item>
+    </string-array>
+    <string-array name="preferences_default_reminder_labels">
+        <item>Chan eil gin</item>
+        <item>0 mionaid</item>
+        <item>Mionaid</item>
+        <item>5 mionaidean</item>
+        <item>10 mionaidean</item>
+        <item>Cairteal na h-uarach</item>
+        <item>20 mionaid</item>
+        <item>25 mionaid</item>
+        <item>Leth-uair a thìde</item>
+        <item>Trì cairteal na h-uarach</item>
+        <item>Uair a thìde</item>
+        <item>2 uair a thìde</item>
+        <item>3 uairean a thìde</item>
+        <item>12 uair a thìde</item>
+        <item>24 uair a thìde</item>
+        <item>2 latha</item>
+        <item>Seachdain</item>
+    </string-array>
+    <string-array name="preferences_week_start_day_labels">
+        <item>Bun-roghainn an sgeama ionadail</item>
+        <item>DiSathairne</item>
+        <item>DiDòmhnaich</item>
+        <item>DiLuain</item>
+    </string-array>
+    <string-array name="availability">
+        <item>Trang</item>
+        <item>Saor</item>
+        <item>Gun chinnt</item>
+    </string-array>
+    <string-array name="visibility">
+        <item>Bun-roghainn</item>
+        <item>Prìobhaideach</item>
+        <item>Poblach</item>
+    </string-array>
+    <string-array name="ordinal_labels">
+        <item>ciad</item>
+        <item>dàrna</item>
+        <item>treas</item>
+        <item>ceathramh</item>
+        <item>mu dheireadh</item>
+    </string-array>
+    <string-array name="response_labels1">
+        <item>Gun fhreagairt</item>
+        <item>Tha</item>
+        <item>’S dòcha</item>
+        <item>Chan eil</item>
+    </string-array>
+    <string-array name="delete_repeating_labels">
+        <item>An tachartas seo a-mhàin</item>
+        <item>Seo ’s tachartasan san àm ri teachd</item>
+        <item>A h-uile tachartas</item>
+    </string-array>
+    <string-array name="delete_repeating_labels_no_selected">
+        <item>Seo ⁊ tachartasan san àm ri teachd</item>
+        <item>A h-uile tachartas</item>
+    </string-array>
+    <string-array name="change_response_labels">
+        <item>An tachartas seo a-mhàin</item>
+        <item>Gach tachartas san t-sreath seo</item>
+    </string-array>
+    <string-array name="buttons_list">
+        <item>Latha</item>
+        <item>Seachdain</item>
+        <item>Mìos</item>
+        <item>Clàr-ghnothaich</item>
+    </string-array>
+    <string-array name="preferences_skip_reminders_labels">
+        <item>Dìreach ma chaidh a dhiùltadh</item>
+        <item>Ma chaidh a dhiùltadh no ma tha e gun fhreagairt</item>
+    </string-array>
+    <string-array name="recurrence_freq">
+        <item>A-RITHIST GACH LATHA</item>
+        <item>A-RITHIST GACH SEACHDAIN</item>
+        <item>A-RITHIST GACH MÌOS</item>
+        <item>A-RITHIST GACH BLIADHNA</item>
+    </string-array>
+    <string-array name="repeat_by_nth_sun">
+        <item>gach ciad DiDòmhnaich</item>
+        <item>gach dàrna DiDòmhnaich</item>
+        <item>gach treas DiDòmhnaich</item>
+        <item>gach ceathramh DiDòmhnaich</item>
+        <item>gach DiDòmhnaich mu dheireadh</item>
+    </string-array>
+    <string-array name="repeat_by_nth_mon">
+        <item>gach ciad DiLuain</item>
+        <item>gach dàrna DiLuain</item>
+        <item>gach treas DiLuain</item>
+        <item>gach ceathramh DiLuain</item>
+        <item>gach DiLuain mu dheireadh</item>
+    </string-array>
+    <string-array name="repeat_by_nth_tues">
+        <item>gach ciad DiMàirt</item>
+        <item>gach dàrna DiMàirt</item>
+        <item>gach treas DiMàirt</item>
+        <item>gach ceathramh DiMàirt</item>
+        <item>gach DiMàirt mu dheireadh</item>
+    </string-array>
+    <string-array name="repeat_by_nth_wed">
+        <item>gach ciad DiCiadain</item>
+        <item>gach dàrna DiCiadain</item>
+        <item>gach treas DiCiadain</item>
+        <item>gach ceathramh DiCiadain</item>
+        <item>gach DiCiadain mu dheireadh</item>
+    </string-array>
+    <string-array name="repeat_by_nth_thurs">
+        <item>gach ciad DiarDaoin</item>
+        <item>gach dàrna DiarDaoin</item>
+        <item>gach treas DiarDaoin</item>
+        <item>gach ceathramh DiarDaoin</item>
+        <item>gach DiarDaoin mu dheireadh</item>
+    </string-array>
+    <string-array name="repeat_by_nth_fri">
+        <item>gach ciad DihAoine</item>
+        <item>gach dàrna DihAoine</item>
+        <item>gach treas DihAoine</item>
+        <item>gach ceathramh DihAoine</item>
+        <item>gach DihAoine mu dheireadh</item>
+    </string-array>
+    <string-array name="repeat_by_nth_sat">
+        <item>gach ciad DiSathairne</item>
+        <item>gach dàrna DiSathairne</item>
+        <item>gach treas DiSathairne</item>
+        <item>gach ceathramh DiSathairne</item>
+        <item>gach DiSathairne mu dheireadh</item>
+    </string-array>
 </resources>
